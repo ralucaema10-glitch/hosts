@@ -1,0 +1,14 @@
+#!/bin/bash
+
+while read ip host
+do
+    resolved=$(host "$host" | awk '/has address/ {print $4}')
+
+    if [ "$ip" = "$resolved" ]
+    then
+        echo "$host OK"
+    else
+        echo "$host INVALID"
+    fi
+
+done < /etc/hosts
